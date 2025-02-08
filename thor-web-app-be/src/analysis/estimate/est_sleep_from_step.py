@@ -216,6 +216,6 @@ def normal_sleep_estimation(df, time_range):
             wake_time = wake_df["startDate"].min().time()
 
         # 夜更かししているフラグと推定に使用したデータ数を格納
-        result = [bed_time, wake_time, False, len(df)]
+        result = [bed_time, wake_time, False, len(bed_df)+len(wake_df)]
 
         return result
