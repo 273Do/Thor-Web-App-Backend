@@ -289,12 +289,26 @@ dfs = extractor.get_dataframes()
 
 <details><summary>補助関数をまとめたもの．</summary>
 
-| 関数     | `narrow_the_data(df, months)`                     |
+| 関数     | `narrow_the_data_month(df, months)`               |
 | -------- | ------------------------------------------------- |
 | 役割     | データを最後のレコードから直近の n ヶ月前に絞る． |
 | 第１引数 | [DataFrame]：DataFrame                            |
 | 第２引数 | [Int]：何ヶ月前まで抽出するか指定                 |
 | 返り値   | [DataFrame]：絞ったデータ                         |
+
+| 関数     | `narrow_the_data_week(df, weeks)`                 |
+| -------- | ------------------------------------------------- |
+| 役割     | データを最後のレコードから直近の n 週間前に絞る． |
+| 第１引数 | [DataFrame]：DataFrame                            |
+| 第２引数 | [Int]：何週間前まで抽出するか指定                 |
+| 返り値   | [DataFrame]：絞ったデータ                         |
+
+| 関数     | `filter_data(df, target)`                          |
+| -------- | -------------------------------------------------- |
+| 役割     | 歩数か正解睡眠データを指定してフィルタリングする． |
+| 第１引数 | [DataFrame]：DataFrame                             |
+| 第２引数 | [String("step" or "sleep")]：どのモードかを指定    |
+| 返り値   | [DataFrame]：抽出したデータ                        |
 
 | 関数     | `filter_data(df, target)`                          |
 | -------- | -------------------------------------------------- |
