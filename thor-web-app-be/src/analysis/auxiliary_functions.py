@@ -10,13 +10,35 @@ import os
 # データを最後のレコードから直近のnヶ月前に絞る関数
 
 
-def narrow_the_data(df, months):
+def narrow_the_data_month(df, months):
 
     # データの最後の日の観測時間を取得
-    end_date = df.iloc[-1]["startDate"]
+    # end_date = df.iloc[-1]["startDate"]
+
+    # データをダウンロードした日の前日までをみる
+    end_date = df.iloc[-1]["startDate"] - pd.Timedelta(days=1)
 
     # 精査する範囲の最初の日を設定
     start_date = end_date - relativedelta(months=months-1)
+
+    # 精査する初日の時刻を0時に設定
+    start_date = start_date.replace(hour=0, minute=0, second=0, microsecond=0)
+
+    # 設定した月でデータを絞る
+    narrow_df = df[(df["startDate"] >= start_date)
+                   & (df["startDate"] <= end_date)]
+
+    return narrow_df
+
+
+# データを最後のレコードから直近のn週間前に絞る関数
+def narrow_the_data_week(df, weeks):
+
+    # データをダウンロードした日の前日までをみる
+    end_date = df.iloc[-1]["startDate"] - pd.Timedelta(days=1)
+
+    # 精査する範囲の最初の日を設定
+    start_date = end_date - relativedelta(weeks=weeks)
 
     # 精査する初日の時刻を0時に設定
     start_date = start_date.replace(hour=0, minute=0, second=0, microsecond=0)

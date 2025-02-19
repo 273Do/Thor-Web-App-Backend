@@ -1,11 +1,12 @@
 import pandas as pd
 import json
+import sys
 # MEMO: コンテナ内で実行する場合は以下のパスを使用
-# from auxiliary_functions import narrow_the_data, filter_data
+# from auxiliary_functions import narrow_the_data_month, narrow_the_data_week, filter_data
 # from ML.clustering import clustering
 # from estimate.estimate import estimate
 # from ..open_api_functions import generate_feedback
-from src.analysis.auxiliary_functions import narrow_the_data, filter_data
+from src.analysis.auxiliary_functions import narrow_the_data_month, narrow_the_data_week, filter_data
 from src.analysis.ML.clustering import clustering
 from src.analysis.estimate.estimate import estimate
 from src.open_api_functions import generate_feedback
@@ -27,17 +28,23 @@ def data_analyze(step_count_df, sleep_analysis_df, answer):
             step_count_df["value"], errors="coerce")
 
         # 歩数データと睡眠データを直近3ヶ月間に絞る
-        step_count_df = narrow_the_data(step_count_df, 3)
-        sleep_analysis_df = narrow_the_data(sleep_analysis_df, 3)
+        # step_count_df = narrow_the_data_month(step_count_df, 3)
+        step_count_df = narrow_the_data_week(step_count_df, 1)
+        # sleep_analysis_df = narrow_the_data(sleep_analysis_df, 3)
 
         # 抽出対象を指定してフィルタリング
         step_count_df = filter_data(step_count_df, "step")
-        sleep_analysis_df = filter_data(sleep_analysis_df, "sleep")
+        # sleep_analysis_df = filter_data(sleep_analysis_df, "sleep")
+
+        print(step_count_df)
+
+        # 処理を終了
+        # sys.exit()
 
         # 正解データがあるかどうかのフラグ
-        hasActSleep = True
-        if sleep_analysis_df.empty:
-            hasActSleep = False
+        # hasActSleep = True
+        # if sleep_analysis_df.empty:
+        #     hasActSleep = False
 
         # 歩数のクラスタリング処理
         step_count_df, cluster_stats = clustering(step_count_df)
