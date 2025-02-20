@@ -12,4 +12,6 @@ services:
     environment:
       FLASK_APP: /usr/src/app/thor-web-app-be/app.py
       FLASK_ENV: development
-    command: flask run -h 0.0.0.0 --debug --reload
+      PYTHONPATH: /usr/src/app/thor-web-app-be
+      # command: flask run -h 0.0.0.0 --debug --reload
+    command: gunicorn -w 4 -k gevent -b 0.0.0.0:5000 thor-web-app-be.app:app

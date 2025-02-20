@@ -5,3 +5,6 @@ botocore
 python-dotenv
 python-dateutil
 flask-cors
+
+gunicorn
+gevent

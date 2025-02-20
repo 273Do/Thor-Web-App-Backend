@@ -44,4 +44,10 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 RUN npm install
 
 # アプリケーションのエントリーポイント（必要に応じて変更）
-CMD ["bash"]
+# CMD ["bash"]
+
+# ポートを開放
+EXPOSE 5000
+
+# GunicornでFlaskを起動
+CMD ["gunicorn", "-w", "4", "-k", "gevent", "-b", "0.0.0.0:5000", "--log-level", "debug", "thor-web-app-be.app:app"]
